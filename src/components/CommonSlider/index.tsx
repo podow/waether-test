@@ -42,7 +42,6 @@ export default class CommonSlider extends Component<IProps, IState> {
         () => {
           this.slider = new Glide(`#${this.id}`, {
             autoplay: false,
-            peek: 100,
             animationDuration: 1000,
             type: 'carousel',
             animationTimingFunc: 'ease',

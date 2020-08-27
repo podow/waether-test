@@ -43,18 +43,9 @@ export const GlideTrack = styled.div`
 `;
 
 export const SliderItem = styled.div`
-  @media ${device.mobileS} {
-    margin-inline-start: 25px;
-    margin-inline-end: 25px;
-  }
-  @media ${device.tablet} {
-    margin-inline-start: 40px;
-    margin-inline-end: 40px;
-  }
-  div {
-    h3 {
-      padding-bottom: 10px;
-      padding-top: 10px;
-    }
+  h2,
+  h3 {
+    margin: 0;
+    margin-bottom: 10px;
   }
 `;
