@@ -6,4 +6,5 @@ export const SliderItem = styled.div`
   border-radius: 14px;
   padding: 15px;
   color: #fff;
+  cursor: pointer;
 `;

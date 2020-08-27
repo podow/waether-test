@@ -21,9 +21,13 @@ const Main: React.FC = () => {
 
   useEffect(() => {
     if (!weather) {
-      dispatch(fetchWeather('Karagandy'));
+      dispatch(fetchWeather({ q: 'Karagandy' }));
     }
   }, [dispatch, weather]);
+
+  const onSlideClick = name => {
+    dispatch(fetchWeather(name));
+  };
 
   if (loading) return <Loader />;
 
@@ -32,12 +36,12 @@ const Main: React.FC = () => {
       <Container>
         <CommonSlider trackAddStyles={{ padding: '30px 0 15px' }}>
           {test.map((item, key) => (
-            <SliderItem key={key}>
+            <SliderItem key={key} onClick={() => onSlideClick(weather?.name)}>
               <img
                 src={`http://openweathermap.org/img/wn/${weather?.weather[0].icon}@2x.png`}
                 alt="weather"
               />
-              <div>{weather?.name}</div>
+              <h2>{weather?.name}</h2>
               <div>{weather?.weather[0].description}</div>
             </SliderItem>
           ))}
