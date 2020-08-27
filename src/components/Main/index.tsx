@@ -1,45 +1,67 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { MainWrapper, Header, Logo } from './styles';
+import { SliderItem } from './styles';
 
 import { fetchWeather } from '../../store/main/actions';
 
 import Loader from '../Loader';
+import Layout from '../Layout';
+import Container from '../Container';
+import CommonSlider from '../CommonSlider';
 
 const Main: React.FC = () => {
+  // TODO: Remove after filled
+  const test = [...Array(5).fill(1)];
   const dispatch = useDispatch();
-  const { weather, loading, failed } = useSelector(state => ({
+  const { weather, loading } = useSelector(state => ({
     weather: state.main.weather.data,
-    loading: state.main.weather.loading,
-    failed: state.main.weather.failed
+    loading: state.main.weather.loading
   }));
 
   useEffect(() => {
     if (!weather) {
-      dispatch(fetchWeather());
+      dispatch(fetchWeather('Karagandy'));
     }
   }, [dispatch, weather]);
 
   if (loading) return <Loader />;
 
-  if (failed) return <h1>Failed!</h1>;
-
   return (
-    <MainWrapper>
-      <Header>
-        <Logo src={weather?.current.weather_icons[0]} alt="weather" />
-        <span>{weather?.current.weather_descriptions[0]}</span>
+    <Layout>
+      <Container>
+        <CommonSlider trackAddStyles={{ padding: '30px 0 15px' }}>
+          {test.map((item, key) => (
+            <SliderItem key={key}>
+              <img
+                src={`http://openweathermap.org/img/wn/${weather?.weather[0].icon}@2x.png`}
+                alt="weather"
+              />
+              <div>{weather?.name}</div>
+              <div>{weather?.weather[0].description}</div>
+            </SliderItem>
+          ))}
+        </CommonSlider>
+      </Container>
+      <Container>
+        <img
+          src={`http://openweathermap.org/img/wn/${weather?.weather[0].icon}@2x.png`}
+          alt="weather"
+        />
+        <div>{weather?.name}</div>
+        <div>{weather?.weather[0].description}</div>
         <ul>
-          <li>Temperature: {weather?.current.temperature}</li>
-          <li>Feels like: {weather?.current.feelslike}</li>
-          <li>Wind direction: {weather?.current.wind_dir}</li>
-          <li>Wind Speed: {weather?.current.wind_speed} km/h</li>
-          <li>Pressure: {weather?.current.pressure}</li>
-          <li>Humidity: {weather?.current.humidity}</li>
+          <li>Temperature: {weather?.main.temp}</li>
+          <li>Feels like: {weather?.main.feels_like}</li>
+          <li>Wind degrees: {weather?.wind.deg}</li>
+          <li>Wind Speed: {weather?.wind.speed} km/h</li>
+          <li>Temp min: {weather?.main.temp_min}</li>
+          <li>Temp max: {weather?.main.temp_max}</li>
+          <li>Pressure: {weather?.main.pressure}</li>
+          <li>Humidity: {weather?.main.humidity}</li>
         </ul>
-      </Header>
-    </MainWrapper>
+      </Container>
+    </Layout>
   );
 };
 
