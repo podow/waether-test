@@ -1,10 +1,12 @@
 import axios from '../../utils/axios.config';
 
-export const getWeather = () =>
+export const getWeather = city =>
   axios
-    .get('/current', {
+    .get('/weather', {
       params: {
-        query: 'Karagandy'
+        q: city,
+        units: 'metric',
+        lang: 'ru'
       }
     })
     .then(({ data }) => data);

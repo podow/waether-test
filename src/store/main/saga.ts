@@ -4,9 +4,9 @@ import { fetchWeather, fetchWeatherDone, fetchWeatherFail } from './actions';
 
 import { getWeather } from './api';
 
-function* fetchWeatherFlow() {
+function* fetchWeatherFlow({ payload }) {
   try {
-    const res = yield call(getWeather);
+    const res = yield call(getWeather, payload);
     if (res) {
       yield put(fetchWeatherDone(res));
     }

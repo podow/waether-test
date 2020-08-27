@@ -9,12 +9,12 @@ export const setHelpersStore = newStore => {
 };
 
 const axiosConfig: AxiosInstance & AxiosRequestConfig = axios.create({
-  baseURL: `${process.env.REACT_APP_API_HOST}`,
+  baseURL: `${process.env.REACT_APP_WEATHER_API_HOST}`,
   headers: {
     accept: 'application/json'
   },
   params: {
-    access_key: process.env.REACT_APP_API_KEY
+    appid: process.env.REACT_APP_WEATHER_API_KEY
   }
 });
 
