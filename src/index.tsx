@@ -8,6 +8,8 @@ import configureStore from './store';
 
 import Main from './components/Main';
 
+import 'antd/dist/antd.css';
+
 const store = configureStore();
 
 ReactDOM.render(
