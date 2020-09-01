@@ -1,33 +1,55 @@
 import { handleActions } from 'redux-actions';
 
-import { WEATHER, DONE, FAIL } from '../constants';
+import { WEATHER, DONE, FAIL, ONE, FETCH } from '../constants';
 
 import status from '../status';
 
 const initialState = {
-  weather: { ...status }
+  weatherAll: { ...status }
 };
 
 export default handleActions(
   {
-    [WEATHER]: state => ({
+    [WEATHER + FETCH]: state => ({
       ...state,
-      weather: {
+      weatherAll: {
         ...status,
         loading: true
       }
     }),
-    [WEATHER + DONE]: (state, { payload }) => ({
+    [WEATHER + FETCH + DONE]: (state, { payload }: any) => ({
       ...state,
-      weather: {
+      weatherAll: {
         ...status,
         success: true,
-        data: payload
+        data: payload.list
       }
     }),
-    [WEATHER + FAIL]: state => ({
+    [WEATHER + FETCH + FAIL]: state => ({
       ...state,
-      weather: {
+      weatherAll: {
+        ...status,
+        failed: true
+      }
+    }),
+    [WEATHER + FETCH + ONE]: state => ({
+      ...state,
+      weatherAll: {
+        ...status,
+        loading: true,
+      }
+    }),
+    [WEATHER + FETCH + ONE + DONE]: (state, { payload }) => ({
+      ...state,
+      weatherAll: {
+        ...status,
+        success: true,
+        data: { ...state.weatherAll, payload }
+      }
+    }),
+    [WEATHER + FETCH + ONE + FAIL]: state => ({
+      ...state,
+      weatherAll: {
         ...status,
         failed: true
       }
