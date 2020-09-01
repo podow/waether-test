@@ -94,3 +94,17 @@ export const SliderItem = styled.div`
 export const SliderInput = styled.div`
   padding-top: 25px;
 `;
+
+export const WeatherDetailedWrapper = styled.section`
+  padding-bottom: 50px;
+`;
+
+export const WeatherDetailedImageRow = styled.section`
+  display: flex;
+  padding: 12px 0 24px;
+`;
+
+export const WeatherDetailedImageWrapper = styled.section`
+  background-color: ${mainColor};
+  border-radius: 50%;
+`;
