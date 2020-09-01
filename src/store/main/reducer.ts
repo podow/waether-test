@@ -1,11 +1,12 @@
 import { handleActions } from 'redux-actions';
 
 import { WEATHER, DONE, FAIL, ONE, FETCH } from '../constants';
+import { IStore } from '../../interfaces/store/weather';
 
 import status from '../status';
 
-const initialState = {
-  weatherAll: { ...status }
+const initialState: IStore = {
+  weatherAll: { ...status, data: null }
 };
 
 export default handleActions(
@@ -14,7 +15,8 @@ export default handleActions(
       ...state,
       weatherAll: {
         ...status,
-        loading: true
+        loading: true,
+        data: null
       }
     }),
     [WEATHER + FETCH + DONE]: (state, { payload }: any) => ({
@@ -29,29 +31,32 @@ export default handleActions(
       ...state,
       weatherAll: {
         ...status,
-        failed: true
+        failed: true,
+        data: null
       }
     }),
-    [WEATHER + FETCH + ONE]: state => ({
+    [WEATHER + ONE + FETCH]: state => ({
       ...state,
       weatherAll: {
         ...status,
         loading: true,
+        data: null
       }
     }),
-    [WEATHER + FETCH + ONE + DONE]: (state, { payload }) => ({
+    [WEATHER + ONE + FETCH + DONE]: (state, { payload }: any) => ({
       ...state,
       weatherAll: {
         ...status,
         success: true,
-        data: { ...state.weatherAll, payload }
+        data: [...state.weatherAll.data, payload]
       }
     }),
-    [WEATHER + FETCH + ONE + FAIL]: state => ({
+    [WEATHER + ONE + FETCH + FAIL]: state => ({
       ...state,
       weatherAll: {
         ...status,
-        failed: true
+        failed: true,
+        data: null
       }
     })
   },
