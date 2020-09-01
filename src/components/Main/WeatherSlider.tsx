@@ -3,6 +3,8 @@ import moment from 'moment';
 
 import { SliderItem } from './styles';
 
+import { ICity } from '../../interfaces/components/city';
+
 import CommonSlider from '../CommonSlider';
 import { CloudFilled } from '@ant-design/icons/lib';
 
@@ -11,16 +13,17 @@ const WeatherSlider: React.FC<{ data: any; onSlideClick: (name) => void }> = ({
   onSlideClick
 }) => (
   <CommonSlider trackAddStyles={{ padding: '30px 0 15px' }} withoutArrows>
-    {data?.map(
-      ({
+    {data?.map((item: ICity) => {
+      const {
         id,
         name,
         weather,
         main: { humidity, temp, temp_min, temp_max },
         wind: { speed },
         sys: { country }
-      }) => (
-        <SliderItem key={id} onClick={() => onSlideClick(name)}>
+      } = item;
+      return (
+        <SliderItem key={id} onClick={() => onSlideClick(item)}>
           <header>
             <h2>{name}</h2>
             <div>
@@ -52,12 +55,12 @@ const WeatherSlider: React.FC<{ data: any; onSlideClick: (name) => void }> = ({
               <p>{weather[0].description}</p>
             </div>
             <div className="temperature">
-              <h2>{parseInt(temp)}&#176;</h2>
+              <h2>{parseInt(String(temp))}&#176;</h2>
             </div>
           </section>
         </SliderItem>
-      )
-    )}
+      );
+    })}
   </CommonSlider>
 );
 
