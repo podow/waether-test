@@ -27,8 +27,8 @@ const WeatherSlider: React.FC<{ data: any; onSlideClick: (name) => void }> = ({
           <header>
             <h2>{name}</h2>
             <div>
-              <span>Min {temp_min}&#176;</span>
-              <span>Max {temp_max}&#176;</span>
+              <span>Min {parseInt(String(temp_min))}&#176;</span>
+              <span>Max {parseInt(String(temp_max))}&#176;</span>
             </div>
           </header>
           <section>
